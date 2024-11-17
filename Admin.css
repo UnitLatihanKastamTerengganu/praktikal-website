@@ -1,0 +1,94 @@
+html {
+    scroll-behavior: smooth;
+  }
+  
+.title_container {
+    top: 8px;
+    width: 70%;
+    height: 35px;
+    background: aliceblue;
+    padding: 15px 32px;
+  }
+  
+.title {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 34px;
+  }
+
+  
+#top {
+    display: none;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 11;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    background-color: rgb(142, 143, 175);
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 400px;
+  }
+  
+#top:hover {
+    background-color: rgb(91, 91, 111);
+  }
+  
+.background_image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+.logo_image {
+    position: absolute;
+    top: 90px;
+    left: 25px;
+    width: 42%;
+    height: 20%;
+}
+
+.whitebg {
+    width: auto;
+    height: auto;
+    margin-top: -100px;
+    margin-left: auto;
+    margin-right: auto;
+    background: white;
+  
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+table {
+    width: 50%;
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid #000;
+    padding: 8px 12px;
+    text-align: left;
+}
+th, td {
+    background-color: #f2f2f2;
+}
+
+
+
+/* <th>NO. TELEFON</th>
+                <th>NAMA IPT</th>
+                <th>KOD PENGAJIAN</th>
+                <th>PROGRAM PENGAJIAN</th>
+                <th>TARIKH MULA</th>
+                <th>TARIKH TAMAT</th>
+                <th>TEMPOH (BULAN)</th>
+                <th>KEMAHIRAN / KEPAKARAN</th>
+                <th>RESUME</th>
+                <th>DOKUMEN LAIN</th> */

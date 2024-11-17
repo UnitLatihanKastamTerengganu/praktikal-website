@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SEMAKAN PERMOHONAN PRAKTIKAL</title>
+    <link rel="stylesheet" href="Admin.css">
+</head>
+<body bgcolor="#2e00a4">
+
+    <div class="title_container">
+        <div class="title">SEMAKAN PERMOHONAN PRAKTIKAL KASTAM TERENGGANU</div>
+    </div>
+
+    <button class="scroll_top" onclick="topFunction()" id="top">⬆️</button>
+    
+    <script>
+        let topbutton = document.getElementById("top");
+
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                topbutton.style.display = "block";
+            }
+            else {
+                topbutton.style.display = "none";
+            }
+        }
+
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
+
+    <img src="images/Background.png" alt="Background Image" class="background_image">
+        
+    <div class="logo">
+        <img src="images/logo.png" alt="Logo" class="logo_image">
+    </div>
+
+    <div class="whitebg">
+        <table>
+            <thead>
+                <tr>
+                    <th>NAMA</th>
+                    <th>NOMBOR TELEFON</th>
+                    <th>NAMA PENUH IPT</th>
+                    <th>STATUS</th>
+                    <th>ACTION</th>
+                </tr>
+            </thead>
+            <tbody id="user_data">
+                <!-- JavaScript will populate rows here -->
+            </tbody>
+        </table>
+
+        <script>
+
+            async function fetchUserData() {
+                try {
+                    const response = await fetch('https://script.google.com/macros/s/AKfycbxd5Zwyh5TWQzko4RUkPVWLybNFJvt4wIcZ6kzIZHAj0Ydoo5Lv3v6_EViWcCnTgiVx/exec');
+                    const data = await response.json();
+
+                    // Clear existing table rows
+                    const tableBody = document.getElementById("user_data");
+                    tableBody.innerHTML = '';
+
+                    // Populate table with data from Google Sheets
+                    data.forEach((user, index) => {
+                        const row = document.createElement("tr");
+                        row.innerHTML = `
+                            <td>${user["NAMA"]}</td>
+                            <td>${user["NOMBOR TELEFON"]}</td>
+                            <td>${user["NAMA PENUH IPT"]}</td>
+                            <td id="Status-${index}">${user["Status"]}</td>
+                            <td>
+                                <button onclick="approveUser(${index})">Approve</button>
+                                <button onclick="denyUser(${index})">Deny</button>
+                            </td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                } catch (error) {
+                    console.error('Error fetching user data:', error);
+                }
+            }
+
+            async function updateUserStatus(row, status) {
+            try {
+                await fetch('https://script.google.com/macros/s/AKfycbxd5Zwyh5TWQzko4RUkPVWLybNFJvt4wIcZ6kzIZHAj0Ydoo5Lv3v6_EViWcCnTgiVx/exec', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ row: row + 1, Status: status })  // Use "Status" as key
+                });
+                console.log(`Status for row ${row} updated to ${status}`);
+                document.getElementById(`Status-${row}`).innerText = status;
+            } 
+            
+            catch (error) {
+                console.error('Error updating user Status:', error);
+            }
+        }
+
+
+            function approveUser(index) {
+                updateUserStatus(index, "Approved");
+            }
+
+
+            function denyUser(index) {
+                updateUserStatus(index, "Denied");
+            }
+
+            // Fetch data on page load
+            window.onload = fetchUserData;
+        </script>
+
+    </div>
+</body>
+</html>
